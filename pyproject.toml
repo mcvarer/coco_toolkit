@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "coco_toolkit"
+version = "0.1.0"
+description = "A Reporer Everyting for traninig CocoDataset"
+readme = "README.md"
+authors = ["mcvarer <murat@visiosoft.com.tr>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+tqdm = "^4.64.0"
+matplotlib = "^3.5.2"
+addict = "^2.4.0"
+pre-commit = "^2.19.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+line_length = 120
+profile = "black"
