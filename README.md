@@ -47,3 +47,13 @@ coco = PreProcess(path to coco json file).reader()
 `
 PreProcess(path).export_according2_class(coco, ["human", "car"], "/home/user/data/images")
 `
+
+## Check before PR 
+
+```bash
+black . --config pyproject.toml
+isort .
+pre-commit run --all-files
+
+
+```
