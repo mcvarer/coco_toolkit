@@ -76,9 +76,7 @@ class AnalyzeCategories:
     def plot_class_pie_chart(self, visualize: bool):
         _, data, total = AnalyzeCategories.get_class_info(self)
         plt.figure(figsize=(15, 15))
-        plt.pie(
-            list(data.values()), labels=list(data.keys()), autopct="%1.1f%%", rotatelabels=90,
-        )
+        plt.pie(list(data.values()), labels=list(data.keys()), autopct="%1.1f%%", rotatelabels=90)
         plt.legend(loc="lower right")
         plt.title("Pie Chart Categories", fontsize=40)
         plt.text(
@@ -125,12 +123,7 @@ class AnalyzeCategories:
         list_ratios = []
 
         for ann in self.coco["annotations"]:
-            x1, y1, x2, y2 = (
-                ann["bbox"][0],
-                ann["bbox"][1],
-                ann["bbox"][2],
-                ann["bbox"][3],
-            )
+            x1, y1, x2, y2 = (ann["bbox"][0], ann["bbox"][1], ann["bbox"][2], ann["bbox"][3])
             w = int(x1 - x2)
             h = int(y1 - y2)
             ratio = round(w / h, 1)

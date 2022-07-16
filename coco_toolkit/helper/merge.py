@@ -17,13 +17,7 @@ def merge_multiple_cocos(*args: list, merge_path: str, first_id: int, visualizer
     [json_path_1, image path_1], [json_path_2, image path_2] .....
     :return: return merge data and save to given directory
     """
-    merged = {
-        "licenses": [],
-        "info": {},
-        "categories": [],
-        "images": [],
-        "annotations": [],
-    }
+    merged = {"licenses": [], "info": {}, "categories": [], "images": [], "annotations": []}
     categories: list = []
     class_names: list = []
     list_dir: list = []

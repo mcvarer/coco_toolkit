@@ -25,9 +25,7 @@ def voc2coco(data_xml_folder_path: str, output_path: str, image_path: str):
     coco = PreProcess(json_path).set_unique_class_id(coco, 1, False, False)
     list_dir_img = os.listdir(image_path)
     for image in list_dir_img:
-        shutil.copy(
-            image_path + f"/{image}", output_path + f"/converted_coco_{time}/images/{image}",
-        )
+        shutil.copy(image_path + f"/{image}", output_path + f"/converted_coco_{time}/images/{image}")
     PreProcess.save_coco_file(coco, json_path.split(".")[0])
     log = logging.getLogger()
     log.info("coco dataset is ready!")

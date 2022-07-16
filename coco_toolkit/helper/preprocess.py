@@ -176,9 +176,7 @@ class PreProcess:
         os.makedirs(self.path + f"/extracted_dataset_{time}")
 
         for image in move_list_dir:
-            shutil.copy(
-                image_path + f"/{image}", self.path + f"/extracted_dataset_{time}" + f"/{image}",
-            )
+            shutil.copy(image_path + f"/{image}", self.path + f"/extracted_dataset_{time}" + f"/{image}")
 
         coco["images"] = image_list
         coco["annotations"] = ann_items
@@ -226,9 +224,7 @@ class PreProcess:
         os.makedirs(self.path + f"/filtered_dataset_{time}")
 
         for image in move_list_dir:
-            shutil.copy(
-                image_path + f"/{image}", self.path + f"/filtered_dataset_{time}" + f"/{image}",
-            )
+            shutil.copy(image_path + f"/{image}", self.path + f"/filtered_dataset_{time}" + f"/{image}")
 
         coco["images"] = image_list
         coco["annotations"] = ann_items
@@ -253,14 +249,9 @@ class PreProcess:
         time = "-".join(time).replace(":", "-")
 
         for ann in coco["annotations"]:
-            x1, y1, x2, y2 = (
-                ann["bbox"][0],
-                ann["bbox"][1],
-                ann["bbox"][2],
-                ann["bbox"][3],
-            )
+            x1, y1, x2, y2 = (ann["bbox"][0], ann["bbox"][1], ann["bbox"][2], ann["bbox"][3])
             if not ann["segmentation"]:
-                ann["segmentation"] = [[x1, y1, x1, (y1 + y2), (x1 + x2), (y1 + y2), (x1 + x2), y1,]]
+                ann["segmentation"] = [[x1, y1, x1, (y1 + y2), (x1 + x2), (y1 + y2), (x1 + x2), y1]]
         if inplace:
             PreProcess.save_coco_file(coco, f"{self.path}/added_segmentation_{time}")
             log = logging.getLogger()
@@ -346,9 +337,7 @@ class PreProcess:
             uuid = PreProcess.create_random_image_name(basename, path)
             hashname_dict[basename] = uuid
             if inplace:
-                shutil.copy(
-                    img_path, f"{self.path}/image_name_change_{time}/images/{basename}",
-                )
+                shutil.copy(img_path, f"{self.path}/image_name_change_{time}/images/{basename}")
                 os.rename(
                     f"{self.path}/image_name_change_{time}/images/{basename}",
                     os.path.join(f"{self.path}/image_name_change_{time}/images", uuid),
@@ -358,9 +347,7 @@ class PreProcess:
                 if image["file_name"] == str(key):
                     image["file_name"] = values
         if inplace:
-            PreProcess.save_coco_file(
-                coco, f"{self.path}/image_name_change_{time}/annotations/image_name_change",
-            )
+            PreProcess.save_coco_file(coco, f"{self.path}/image_name_change_{time}/annotations/image_name_change")
             log = logging.getLogger()
             log.info(f"New dataset folder created to {self.path}/image_name_change_{time}")
         return coco
@@ -425,7 +412,7 @@ class PreProcess:
 
     @staticmethod
     def train_test_validation_split(
-        coco_file_path, image_path: str, test_percent: int, validation_percent: int, out_path: str,
+        coco_file_path, image_path: str, test_percent: int, validation_percent: int, out_path: str
     ):
 
         time = str(datetime.datetime.now()).split(".")[0].split()
@@ -433,27 +420,9 @@ class PreProcess:
 
         exit_path = out_path + f"/data-{time}"
 
-        train = {
-            "licenses": [],
-            "info": {},
-            "categories": [],
-            "images": [],
-            "annotations": [],
-        }
-        test = {
-            "licenses": [],
-            "info": {},
-            "categories": [],
-            "images": [],
-            "annotations": [],
-        }
-        validation = {
-            "licenses": [],
-            "info": {},
-            "categories": [],
-            "images": [],
-            "annotations": [],
-        }
+        train = {"licenses": [], "info": {}, "categories": [], "images": [], "annotations": []}
+        test = {"licenses": [], "info": {}, "categories": [], "images": [], "annotations": []}
+        validation = {"licenses": [], "info": {}, "categories": [], "images": [], "annotations": []}
 
         (
             random_list,
@@ -532,16 +501,12 @@ class PreProcess:
             os.makedirs(exit_path + "/test/images"), os.makedirs(exit_path + "/test/annotations")
 
             for image in list_dir_test:
-                shutil.copy(
-                    image_path + f"/{image}", exit_path + "/test/images" + f"/{image}",
-                )
+                shutil.copy(image_path + f"/{image}", exit_path + "/test/images" + f"/{image}")
             test = p.set_unique_annotation_id(test, 1, False)
             test = p.set_unique_image_id(test, 1, False)
             PreProcess.save_coco_file(test, exit_path + "/test/annotations/" + "test")
         for image in list_dir_train:
-            shutil.copy(
-                image_path + f"/{image}", exit_path + "/train/images" + f"/{image}",
-            )
+            shutil.copy(image_path + f"/{image}", exit_path + "/train/images" + f"/{image}")
         train = p.set_unique_annotation_id(train, 1, False)
         train = p.set_unique_image_id(train, 1, False)
         PreProcess.save_coco_file(train, exit_path + "/train/annotations/" + "train")
@@ -550,14 +515,10 @@ class PreProcess:
             os.makedirs(exit_path + "/validation/images"), os.makedirs(exit_path + "/validation/annotations")
 
             for image in list_dir_validation:
-                shutil.copy(
-                    image_path + f"/{image}", exit_path + "/validation/images" + f"/{image}",
-                )
+                shutil.copy(image_path + f"/{image}", exit_path + "/validation/images" + f"/{image}")
             validation = p.set_unique_annotation_id(validation, 1, False)
             validation = p.set_unique_image_id(validation, 1, False)
-            PreProcess.save_coco_file(
-                validation, exit_path + "/validation/annotations/" + "validation",
-            )
+            PreProcess.save_coco_file(validation, exit_path + "/validation/annotations/" + "validation")
         log.info("Data split Done!")
         log.info(f" Data saved to {exit_path}")
 
