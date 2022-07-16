@@ -23,11 +23,6 @@ jobs:
       - name: Install poetry
         run: pipx install poetry
 
-      - name: Lint with flake8
-        run: |
-          pip install flake8
-          flake8 .
-
       - name: Install tox and any other packages
         run: pip install tox
 
