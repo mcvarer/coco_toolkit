@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ ubuntu-latest, macos-latest ]
+        os: [ ubuntu-latest ]
         python-version: ["3.8", "3.9", "3.10"]
 
     steps:
@@ -26,10 +26,6 @@ jobs:
       - name: Ubuntu Tkinter Install
         if: matrix.os == 'ubuntu-latest'
         run: sudo apt-get install python3-tk
-
-      - name: MacOS Tkinter Install
-        if: matrix.os == 'macos-latest'
-        run: brew install python-tk
 
       - name: Run Test
         # Run tox using the version of Python in `PATH`
