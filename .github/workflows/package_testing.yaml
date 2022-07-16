@@ -21,11 +21,8 @@ jobs:
         run: python -m pip install --upgrade pip setuptools wheel && pip install pytest
 
       - name: Install poetry
-        run: pipx install poetry
+        run: pipx install poetry && poetry install
 
-      - name: Install tox and any other packages
-        run: pip install tox
-
-      - name: Run tox
+      - name: Run Test
         # Run tox using the version of Python in `PATH`
         run: poetry run pytest
