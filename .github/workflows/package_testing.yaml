@@ -25,7 +25,7 @@ jobs:
 
       - name: Ubuntu Tkinter Install
         if: matrix.os == 'ubuntu-latest'
-        run: apt-get install python3-tk
+        run: sudo apt-get install python3-tk
 
       - name: Run Test
         # Run tox using the version of Python in `PATH`
