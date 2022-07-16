@@ -11,6 +11,9 @@ tqdm = "^4.64.0"
 matplotlib = "^3.5.2"
 addict = "^2.4.0"
 pre-commit = "^2.19.0"
+tox = "^3.25.1"
+pytest = "^7.1.2"
+numpy = "^1.23.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"

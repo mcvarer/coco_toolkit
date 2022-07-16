@@ -8,7 +8,7 @@ from coco_toolkit.helper.report import AnalyzeCategories
 
 class TestCocoMergeTool(unittest.TestCase):
     def test_set_unique_image_id(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         parent_path_json = os.path.abspath(os.path.join(path, os.pardir))
         coco = PreProcess(path).reader()
         start_id = 10
@@ -21,7 +21,7 @@ class TestCocoMergeTool(unittest.TestCase):
         self.assertEqual(result_2, start_id + 4)
 
     def test_set_unique_class_id(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         parent_path_json = os.path.abspath(os.path.join(path, os.pardir))
         coco = PreProcess(path).reader()
         start_id = 1
@@ -34,7 +34,7 @@ class TestCocoMergeTool(unittest.TestCase):
         self.assertEqual(result_1, start_id + 1)
 
     def test_set_unique_annotation_id(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         parent_path_json = os.path.abspath(os.path.join(path, os.pardir))
         coco = PreProcess(path).reader()
         start_id = 6
@@ -47,15 +47,15 @@ class TestCocoMergeTool(unittest.TestCase):
         self.assertEqual(result_2, start_id + 4)
 
     def test_check_id_unique(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         coco = PreProcess(path).reader()
         result = PreProcess.check_id_unique(coco=coco)
         self.assertTrue(result)
 
     def test_extrack_data_by_class_name(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         parent_path_json = os.path.abspath(os.path.join(path, os.pardir))
-        img_path = "coco_dataset/images"
+        img_path = "tests/coco_dataset/images"
         coco = PreProcess(path).reader()
         export_list = ["crosswalk"]
         coco = PreProcess(parent_path_json).extrack_data_by_class_name(
@@ -65,9 +65,9 @@ class TestCocoMergeTool(unittest.TestCase):
         self.assertEqual(result, export_list)
 
     def test_filter_data_by_class_name(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         parent_path_json = os.path.abspath(os.path.join(path, os.pardir))
-        img_path = "coco_dataset/images"
+        img_path = "tests/coco_dataset/images"
         coco = PreProcess(path).reader()
         filter_list = ["crosswalk"]
         coco = PreProcess(parent_path_json).filter_data_by_class_name(
@@ -77,7 +77,7 @@ class TestCocoMergeTool(unittest.TestCase):
         self.assertEqual(result, ["stop", "trafficlight"])
 
     def test_remove_segmentation(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         parent_path_json = os.path.abspath(os.path.join(path, os.pardir))
         coco = PreProcess(path).reader()
         coco = PreProcess(parent_path_json).remove_segmentation(coco=coco, inplace=True)
@@ -87,7 +87,7 @@ class TestCocoMergeTool(unittest.TestCase):
         self.assertEqual(result_1, {})
 
     def test_box2segmentation(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         parent_path_json = os.path.abspath(os.path.join(path, os.pardir))
         coco = PreProcess(path).reader()
         coco = PreProcess(parent_path_json).remove_segmentation(coco=coco, inplace=True)
@@ -96,9 +96,9 @@ class TestCocoMergeTool(unittest.TestCase):
         self.assertEqual(result, [[147, 70, 147, 173, 288, 173, 288, 70]])
 
     def test_change_image_file_names(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         parent_path_json = os.path.abspath(os.path.join(path, os.pardir))
-        img_path = "coco_dataset/images"
+        img_path = "tests/coco_dataset/images"
         image_list = os.listdir(img_path)
         coco = PreProcess(path).reader()
         name = coco["images"][0]["file_name"]
@@ -110,7 +110,7 @@ class TestCocoMergeTool(unittest.TestCase):
         self.assertTrue(result)
 
     def test_remove_duplicate_image_names(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         parent_path_json = os.path.abspath(os.path.join(path, os.pardir))
         coco = PreProcess(path).reader()
         coco = PreProcess(parent_path_json).remove_duplicate_image_name(coco=coco, inplace=True)
@@ -119,34 +119,34 @@ class TestCocoMergeTool(unittest.TestCase):
         self.assertEqual(result, len_image)
 
     def test_given_category_count(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         coco = PreProcess(path).reader()
         result = AnalyzeCategories(coco).given_category_count("crosswalk")
         self.assertEqual(result, 4)
 
     def test_class_names(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         class_names = ["Background", "stop", "trafficlight", "crosswalk"]
         coco = PreProcess(path).reader()
         result = AnalyzeCategories(coco).class_names()
         self.assertEqual(result, class_names)
 
     def test_total_class(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         coco = PreProcess(path).reader()
         result = AnalyzeCategories(coco).total_class_count()
         total_class = 4
         self.assertEqual(result, total_class)
 
     def test_classes_have_annotations_tuple(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         coco = PreProcess(path).reader()
         have_anno_class = ("stop", "trafficlight", "crosswalk")
         result = AnalyzeCategories(coco).classes_have_annotations_tuple()
         self.assertEqual(result, have_anno_class)
 
     def test_aspect_ratio(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         coco = PreProcess(path).reader()
         aspect_ratio_dict = {
             "100:67": 1,
@@ -162,10 +162,10 @@ class TestCocoMergeTool(unittest.TestCase):
         self.assertEqual(result, aspect_ratio_dict)
 
     def test_merge_multiple_cocos(self):
-        path_1 = "coco_dataset_1/annotations/coco.json"
-        img_1 = "coco_dataset_1/images"
-        path_2 = "coco_dataset/annotations/coco.json"
-        img_2 = "coco_dataset/images"
+        path_1 = "tests/coco_dataset_1/annotations/coco.json"
+        img_1 = "tests/coco_dataset_1/images"
+        path_2 = "tests/coco_dataset/annotations/coco.json"
+        img_2 = "tests/coco_dataset/images"
         merge_path = "test_merge"
         len_annotations = 51
         len_images = 20
@@ -181,7 +181,7 @@ class TestCocoMergeTool(unittest.TestCase):
         self.assertEqual(result_2, len_categories)
 
     def test_remove_distorted_bbox(self):
-        path = "coco_dataset/annotations/coco.json"
+        path = "tests/coco_dataset/annotations/coco.json"
         parent_path_json = os.path.abspath(os.path.join(path, os.pardir))
         coco = PreProcess(path).reader()
         coco = PreProcess(parent_path_json).remove_distorted_bbox(coco, True)

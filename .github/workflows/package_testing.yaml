@@ -1,0 +1,32 @@
+name: Python package
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        python-version: ["3.8", "3.9", "3.10"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip setuptools wheel && pip install pytest
+
+      - name: Install poetry
+        run: pipx install poetry && poetry install -v
+
+      - name: Ubuntu Tkinter Install
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get install python3-tk
+
+      - name: Run Test
+        # Run tox using the version of Python in `PATH`
+        run: poetry run pytest
