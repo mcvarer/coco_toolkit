@@ -6,7 +6,7 @@ readme = "README.md"
 authors = ["mcvarer <murat@visiosoft.com.tr>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 tqdm = "^4.64.0"
 matplotlib = "^3.5.2"
 addict = "^2.4.0"
