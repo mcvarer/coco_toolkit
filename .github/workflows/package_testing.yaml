@@ -23,6 +23,11 @@ jobs:
       - name: Install poetry
         run: pipx install poetry && poetry install -v
 
+      - name: Ubuntu Tkinter Install
+        uses: actions/cache@v1
+        if: matrix.os == 'ubuntu-latest'
+        run: apt-get install python3-tk
+
       - name: Run Test
         # Run tox using the version of Python in `PATH`
         run: poetry run pytest
